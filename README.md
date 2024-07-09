@@ -15,14 +15,20 @@ primary server1
 --vote-account /home/$username/solana/vote-account-keypair.json \
 --authorized-voter /home/$username/solana/staked-identity.json \
 ```
+and simlinked as
+```sh
+primary-identity.json -> /home/ubuntu/solana/staked-identity.json
+```
 secondary server2
 ```sh
 --identity /home/$username/solana/secondary-identity.json \
 --vote-account /home/$username/solana/vote-account-keypair.json \
 --authorized-voter /home/$username/solana/staked-identity.json \
-
 ```
-
+and simlinked as 
+```sh
+secondary-identity.json -> secondary-unstaked-identity.json
+```
 **Note**: The script assumes that all operations are performed from a non-root user as recommended by the official Solana documentation.
 
 ## Setup
