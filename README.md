@@ -27,27 +27,21 @@ secondary server2
 
 ## Setup
 
-1. **Clone the repository**:
+1. **Download the script**:
 
     ```sh
-    curl
-    ```
-
-2. **Make the script executable**:
-
-    ```sh
-    chmod +x transition_update.sh
+    wget https://raw.githubusercontent.com/web3validator/Solana_Transition_Update_Script/main/transition_update.sh?token=GHSAT0AAAAAACMJCZ5PD23MPCJAP6ES63POZUNYMSA
     ```
 
 ## Usage
 
-1. **Run the transition script**:
+2. **Run the transition script**:
 
     ```sh
-    ./transition_update.sh
+    bash transition_update.sh
     ```
 
-2. **Follow the prompts**:
+3. **Follow the prompts**:
     - Enter the IP address of the primary server.
     - Enter the username for the primary server.
     - Enter the IP address of the secondary server.
