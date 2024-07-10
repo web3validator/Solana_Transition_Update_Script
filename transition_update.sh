@@ -144,7 +144,7 @@ check_command "set-identity (secondary)"
 # Check the status of the validators
 echo -e "${YELLOW}Checking the validator status...${NC}"
 VALIDATOR_ADDRESS=$(ssh -o StrictHostKeyChecking=no $SECONDARY_SSH_USER@$SECONDARY_SERVER_IP "$SECONDARY_SOLANA_BIN address")
-SLOTS_BEHIND=$(ssh -o StrictHostKeyChecking=no $SECONDARY_SSH_USER@$SECONDARY_SERVER_IP "$SECONDARY_SOLANA_BIN validators | grep $VALIDATOR_ADDRESS | awk '{print \$6 \" \" \$8}'")
+SLOTS_BEHIND=$(ssh -o StrictHostKeyChecking=no $SECONDARY_SSH_USER@$SECONDARY_SERVER_IP "$SECONDARY_SOLANA_BIN validators | grep $VALIDATOR_ADDRESS | awk '{print \$(NF-2) \" \" \$(NF)}'")
 echo "Validator lag: $SLOTS_BEHIND"
 
 # Evaluate the lag
