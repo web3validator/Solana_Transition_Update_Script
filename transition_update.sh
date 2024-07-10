@@ -144,15 +144,24 @@ check_command "set-identity (secondary)"
 # Check the status of the validators
 echo -e "${YELLOW}Checking the validator status...${NC}"
 VALIDATOR_ADDRESS=$(ssh -o StrictHostKeyChecking=no $SECONDARY_SSH_USER@$SECONDARY_SERVER_IP "$SECONDARY_SOLANA_BIN address")
-SLOTS_BEHIND=$(ssh -o StrictHostKeyChecking=no $SECONDARY_SSH_USER@$SECONDARY_SERVER_IP "$SECONDARY_SOLANA_BIN validators | grep $VALIDATOR_ADDRESS | awk '{print \$(NF-2) \" \" \$(NF)}'")
-echo "Validator lag: $SLOTS_BEHIND"
 
-# Evaluate the lag
-IFS=' ' read -r -a array <<< "$SLOTS_BEHIND"
-if [[ ${array[0]} -lt -3 || ${array[1]} -lt -3 ]]; then
-    echo -e "${RED}Problem: Validator lag is above normal.${NC}"
-else
-    echo -e "${GREEN}All good, the lag is within acceptable limits.${NC}"
-fi
+while true; do
+  SLOTS_BEHIND=$(ssh -o StrictHostKeyChecking=no $SECONDARY_SSH_USER@$SECONDARY_SERVER_IP "$SECONDARY_SOLANA_BIN validators | grep $VALIDATOR_ADDRESS | awk '{print \$(NF-6) \" \" \$(NF-3)}'")
+  echo "Validator lag: $SLOTS_BEHIND"
+  
+  # Split the values into an array
+  IFS=' ' read -r -a array <<< "$SLOTS_BEHIND"
+  
+  # Calculate the difference
+  DIFF=$((array[0] - array[1]))
+  
+  if [[ $DIFF -le 10 && $DIFF -ge -10 ]]; then
+    echo -e "${GREEN}Lag is within acceptable limits: $DIFF.${NC}"
+    break
+  else
+    echo -e "${RED}Lag is too high: $DIFF. Retrying in 5 seconds...${NC}"
+    sleep 5
+  fi
+done
 
 echo -e "${GREEN}Transition completed. Please check the validator status.${NC}"
