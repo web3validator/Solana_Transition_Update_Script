@@ -37,6 +37,7 @@ secondary-identity.json -> secondary-unstaked-identity.json
 
     ```sh
     git clone https://github.com/web3validator/Solana_Transition_Update_Script.git
+    cd Solana_Transition_Update_Script
     ```
 
 ## Usage
