@@ -36,7 +36,7 @@ secondary-identity.json -> secondary-unstaked-identity.json
 1. **Download the script**:
 
     ```sh
-    wget https://raw.githubusercontent.com/web3validator/Solana_Transition_Update_Script/main/transition_update.sh?token=GHSAT0AAAAAACMJCZ5PD23MPCJAP6ES63POZUNYMSA
+    git clone https://github.com/web3validator/Solana_Transition_Update_Script.git
     ```
 
 ## Usage
